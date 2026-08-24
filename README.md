@@ -5,7 +5,7 @@ Workflow:
 - Create a new lesson file with the helper script:
 
 ```bash
-./scripts/new.sh topic_name
+init.sh topic_name
 ```
 
 - Edit `src/bin/topic_name.rs` and write your code. Each file is an independent binary.
