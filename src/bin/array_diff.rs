@@ -3,10 +3,21 @@
 
 use std::collections::HashSet;
 
-// fn main() {
-//     println!("Hello from : array_diff");
+fn main() {
+    println!("Hello from : array_diff");
 
-// }
+}
+
+// Why `T: PartialEq + Eq + Hash`?
+// `HashSet` stores values by hashing them and then checking equality for duplicates.
+// So the element type must be able to:
+// - compare with `==` (`PartialEq`)
+// - have a proper equality rule (`Eq`)
+// - produce a hash (`Hash`)
+//
+// In other words, Rust is saying: "This generic type can be used as a key in a HashSet."
+// If `T` were a custom type, it would need to implement those traits too.
+// For primitive types like `i32` and `String`, Rust already provides them.
 
 pub fn array_diff<T: PartialEq + Eq + std::hash::Hash>(a: Vec<T>, b: Vec<T>) -> Vec<T> {
     let mut hs = HashSet::new();
