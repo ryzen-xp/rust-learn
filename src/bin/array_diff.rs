@@ -5,7 +5,6 @@ use std::collections::HashSet;
 
 fn main() {
     println!("Hello from : array_diff");
-
 }
 
 // Why `T: PartialEq + Eq + Hash`?

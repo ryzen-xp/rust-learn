@@ -6,7 +6,8 @@ if [ $# -lt 1 ]; then
   exit 1
 fi
 
-name="$1"
+name="$*"
+name="${name//[[:space:]]/_}"
 dir="src/bin"
 file="$dir/${name}.rs"
 
@@ -22,7 +23,7 @@ cat > "$file" <<EOF
 // Run with:  cargo run --bin $name
 
 fn main() {
-    println!("Hello from : $name");
+    println!("Hello World : cargo run --bin $name");
 }
 EOF
 
