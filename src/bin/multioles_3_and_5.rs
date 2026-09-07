@@ -22,7 +22,7 @@ fn solution(mut num: i32) -> i32 {
         num -= 1;
     }
 
-    return sum;
+    sum
 }
 
 mod tests {

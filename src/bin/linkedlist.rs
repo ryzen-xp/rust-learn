@@ -54,64 +54,62 @@ impl<T> LinkedList<T> {
     }
 
     fn pop_back(&mut self) {
-        match self.head.as_mut() {
-            Some(x) => {
-                if x.next.is_none() {
-                    self.head = None;
-                    return;
-                }
-
-                let mut current: &mut Box<Node<T>> = x;
-
-                loop {
-                    if current.next.as_ref().unwrap().next.is_none() {
-                        current.next = None;
-                        break;
-                    }
-
-                    current = current.next.as_mut().unwrap();
-                }
+        if let Some(x) = self.head.as_mut() {
+            if x.next.is_none() {
+                self.head = None;
+                return;
             }
 
-            None => (),
+            let mut current: &mut Box<Node<T>> = x;
+
+            loop {
+                if current.next.as_ref().unwrap().next.is_none() {
+                    current.next = None;
+                    break;
+                }
+
+                current = current.next.as_mut().unwrap();
+            }
+        }
+    }
+
+    /*
+      LL =  head--> Some(Node)---->Some(Node)---->Some(Node)---->None
+         head
+           |
+      x =  2-->5-->34-->4-->None
+
+
+    */
+
+    fn remove(&mut self, x: T)
+    where
+        T: PartialEq,
+    {
+        let mut current = &mut self.head;
+
+        while current.is_some() {
+            if current.as_ref().unwrap().value == x {
+                let next = current.as_mut().unwrap().next.take();
+                *current = next;
+            } else {
+                current = &mut current.as_mut().unwrap().next;
+            }
         }
     }
 
     fn length(&self) -> usize {
-        // match self.head.as_mut() {
-        //     Some(mut x) => {
-        //         let mut counter = 1;
-
-        //         while let Some(y) = x.next {
-        //             counter += 1;
-
-        //             if y.next.is_none() {
-        //                 break;
-        //             }
-
-        //             x = y;
-        //         }
-
-        //         counter
-        //     }
-
-        //     None => 0,
-        // }
         let mut counter = 0;
 
-        match self.head.as_mut() {
-            None => 0,
+        let mut current = self.head.as_ref();
 
-            Some(x) => {
-                loop {
-                    if x.next.is_none() {
-                        break;
-                    }
-                }
+        while let Some(x) = current {
+            counter += 1;
 
-                counter
-            }
+            current = x.next.as_ref();
         }
+
+        counter
     }
 }
 
@@ -158,6 +156,10 @@ mod test {
         ll.push_front(2);
         ll.push_front(3);
 
+        assert_eq!(ll.length(), 3);
+        ll.push_back(12);
+        assert_eq!(ll.length(), 4);
+        ll.remove(2);
         assert_eq!(ll.length(), 3);
     }
 }

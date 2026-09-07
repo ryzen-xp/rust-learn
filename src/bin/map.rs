@@ -6,7 +6,7 @@ fn main() {
 
     let double: Vec<i32> = v.iter().map(|x| x * 2).collect();
 
-    let x: Vec<&i32> = v.iter().collect();
+    let _x: Vec<&i32> = v.iter().collect();
 
     println!("{:?}", double);
 }

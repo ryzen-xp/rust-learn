@@ -20,7 +20,9 @@ fn duplicate_encode(word: &str) -> String {
         *counter.entry(normalized).or_insert(0) += 1;
     }
 
-    let y = word
+    
+
+    word
         .chars()
         .map(|x| {
             if *counter.entry(x.to_ascii_lowercase()).or_default() >= 2 {
@@ -29,7 +31,5 @@ fn duplicate_encode(word: &str) -> String {
                 '('
             }
         })
-        .collect();
-
-    y
+        .collect()
 }
