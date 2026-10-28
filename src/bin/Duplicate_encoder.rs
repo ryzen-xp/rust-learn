@@ -20,10 +20,7 @@ fn duplicate_encode(word: &str) -> String {
         *counter.entry(normalized).or_insert(0) += 1;
     }
 
-    
-
-    word
-        .chars()
+    word.chars()
         .map(|x| {
             if *counter.entry(x.to_ascii_lowercase()).or_default() >= 2 {
                 ')'
